@@ -2,13 +2,13 @@ import Ship from "./ship";
 
 export default class GameBoard {
   #boardSize = 10;
-  #board;
+  board;
   #state;
   #ships;
   constructor() {
-    this.#board = new Array(this.#boardSize);
+    this.board = new Array(this.#boardSize);
     for (let i = 0; i < this.#boardSize; i++) {
-      this.#board[i] = new Array(this.#boardSize).fill(0);
+      this.board[i] = new Array(this.#boardSize).fill(0);
     }
 
     this.#ships = {
@@ -29,7 +29,7 @@ export default class GameBoard {
   }
 
   getBoard() {
-    return this.#board;
+    return this.board;
   }
 
   getShips() {
@@ -63,11 +63,11 @@ export default class GameBoard {
     let shipType = this.#getShipType(ship);
     if (direction === "horizontal") {
       for (let i = 0; i < shipLength; i++) {
-        this.#board[row][col + i] = shipType;
+        this.board[row][col + i] = shipType;
       }
     } else if (direction === "vertical") {
       for (let i = 0; i < shipLength; i++) {
-        this.#board[row + i][col] = shipType;
+        this.board[row + i][col] = shipType;
       }
     }
   }
@@ -85,7 +85,7 @@ export default class GameBoard {
       }
 
       for (let i = 0; i < shipLength; i++) {
-        if (this.#board[row][col + i] != 0) return false;
+        if (this.board[row][col + i] != 0) return false;
       }
     } else if (direction === "vertical") {
       if (row + shipLength >= this.#boardSize) {
@@ -93,7 +93,7 @@ export default class GameBoard {
       }
 
       for (let i = 0; i < shipLength; i++) {
-        if (this.#board[row + i][col] != 0) return false;
+        if (this.board[row + i][col] != 0) return false;
       }
     }
 
