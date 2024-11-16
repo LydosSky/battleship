@@ -2,7 +2,6 @@ import Ship from "./ship";
 
 export default class GameBoard {
   #boardSize = 10;
-  board;
   #state;
   #ships;
   constructor() {
@@ -21,7 +20,7 @@ export default class GameBoard {
 
     this.#state = {
       hits: {},
-      misses: {},
+      misses: [],
       sunked: {},
     };
 
@@ -38,6 +37,24 @@ export default class GameBoard {
 
   getState() {
     return this.#state;
+  }
+
+  /**
+   * Receives attack done by player
+   * and registers it as hit or miss
+   * also signals the hit ship
+   * @param {number} row
+   * @param {number} col
+   */
+  receiveAttack(row, col) {
+    if (row >= this.#boardSize || row < 0 || col >= this.#boardSize || col < 0)
+      return;
+    if (this.board[row][col] === 0) this.#state.misses.push([row, col]);
+    else {
+      const shipType = this.board[row][col];
+      this.#state.hits[shipType] = { row, col };
+      this.#ships[shipType].hit();
+    }
   }
 
   // Places every ship that is created
