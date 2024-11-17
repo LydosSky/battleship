@@ -40,6 +40,17 @@ export default class GameBoard {
   }
 
   /**
+   * Checks whether of not all of the ships sunked
+   * @returns {boolean}
+   */
+  isShipsSunk() {
+    return Object.values(this.#ships).reduce(
+      (prev, curr) => prev && curr.isSunk(),
+      true,
+    );
+  }
+
+  /**
    * Receives attack done by player
    * and registers it as hit or miss
    * also signals the hit ship
