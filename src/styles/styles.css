@@ -25,9 +25,16 @@ body {
     font-weight: 500;
 }
 
+
 .square {
     border: 1px solid lightgrey;
+
 }
+
+#enemy-board .square {
+    cursor: pointer;
+}
+
 
 .carrier,
 .battleship,
@@ -43,4 +50,8 @@ body {
 
 .miss {
     background-color: lightgreen;
+}
+
+.disable-element{
+    pointer-events: none;
 }

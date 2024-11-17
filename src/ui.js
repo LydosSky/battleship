@@ -10,7 +10,8 @@ const UI = (function () {
         square.classList.add("square");
         square.setAttribute("row", row);
         square.setAttribute("col", col);
-        if (playerBoard[row][col] !== 0) {
+
+        if (playerBoard[row][col] !== 0 && player.identifier !== "enemy") {
           square.classList.add(playerBoard[row][col]);
         }
         if (playerBoard[row][col] === -1) {
