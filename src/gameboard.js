@@ -56,6 +56,7 @@ export default class GameBoard {
    * also signals the hit ship
    * @param {number} row
    * @param {number} col
+   * @returns {boolean} turn if hit or mis false if it is already hit or missed
    * It changes the board according to miss or hit
    * if it is miss 0 replaced with -1
    * if it is hit  0 replaced with 1
@@ -69,7 +70,7 @@ export default class GameBoard {
       this.board[row][col] === 1 ||
       this.board[row][col] === -1
     )
-      return;
+      return false;
 
     if (this.board[row][col] === 0) {
       this.#state.misses.push([row, col]);
@@ -80,6 +81,8 @@ export default class GameBoard {
       this.#ships[shipType].hit();
       this.board[row][col] = 1;
     }
+
+    return true;
   }
 
   // Places every ship that is created

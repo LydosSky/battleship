@@ -50,7 +50,7 @@ describe("Testing Gameboard functionality", function () {
       battleship: { row: 1, col: 1 },
     });
 
-    gameBoard.receiveAttack(0, 0);
+    expect(gameBoard.receiveAttack(0, 0)).toEqual(false);
     expect(gameBoard.getState().misses).toEqual([[0, 0]]);
     expect(gameBoard.getState().hits).toEqual({
       battleship: { row: 1, col: 1 },
