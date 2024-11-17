@@ -1,26 +1,46 @@
 body {
-    background-color: aliceblue;
-    height: 100vh;
+  background-color: aliceblue;
+  height: 100vh;
 }
 
 .container {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 3rem;
-
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
 }
 
 .board {
-    background-color: deepskyblue;
-    height: 25rem;
-    width: 30rem;
-    display: grid;
-    grid-template-columns: repeat(10, 1fr);
+  background-color: mintcream;
+  height: 25rem;
+  width: 30rem;
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  box-shadow: 0px 0px 16px 0px rgba(0,0,0,0.75);
+}
+
+.board-container p {
+    text-align: center;
+    font-weight: 500;
 }
 
 .square {
-    border: 0.1px solid black
+    border: 1px solid lightgrey;
+}
+
+.carrier,
+.battleship,
+.submarine,
+.cruiser,
+.destroyer {
+  background-color: navy;
+}
+
+.hit {
+    background-color: darkred;
+}
+
+.miss {
+    background-color: lightgreen;
 }
