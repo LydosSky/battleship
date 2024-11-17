@@ -45,15 +45,29 @@ export default class GameBoard {
    * also signals the hit ship
    * @param {number} row
    * @param {number} col
+   * It changes the board according to miss or hit
+   * if it is miss 0 replaced with -1
+   * if it is hit  0 replaced with 1
    */
   receiveAttack(row, col) {
-    if (row >= this.#boardSize || row < 0 || col >= this.#boardSize || col < 0)
+    if (
+      row >= this.#boardSize ||
+      row < 0 ||
+      col >= this.#boardSize ||
+      col < 0 ||
+      this.board[row][col] === 1 ||
+      this.board[row][col] === -1
+    )
       return;
-    if (this.board[row][col] === 0) this.#state.misses.push([row, col]);
-    else {
+
+    if (this.board[row][col] === 0) {
+      this.#state.misses.push([row, col]);
+      this.board[row][col] = -1;
+    } else {
       const shipType = this.board[row][col];
       this.#state.hits[shipType] = { row, col };
       this.#ships[shipType].hit();
+      this.board[row][col] = 1;
     }
   }
 
