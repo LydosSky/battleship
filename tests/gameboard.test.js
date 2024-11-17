@@ -1,31 +1,32 @@
 import GameBoard from "../src/gameboard";
-const BOARD = [
-  [0, 0, 0, 0, 0, "carrier", 0, 0, 0, 0],
-  [
-    "battleship",
-    "battleship",
-    "battleship",
-    "battleship",
-    0,
-    "carrier",
-    0,
-    0,
-    0,
-    0,
-  ],
-  [0, 0, 0, 0, 0, "carrier", 0, 0, 0, 0],
-  ["destroyer", 0, 0, 0, 0, "carrier", 0, 0, 0, 0],
-  ["destroyer", 0, 0, 0, 0, "carrier", "cruiser", 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, "cruiser", 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, "cruiser", 0, "submarine", 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, "submarine", 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, "submarine", 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-];
 
 describe("Testing Gameboard functionality", function () {
   let gameBoard;
-  beforeAll(function () {
+  beforeEach(function () {
+    const BOARD = [
+      [0, 0, 0, 0, 0, "carrier", 0, 0, 0, 0],
+      [
+        "battleship",
+        "battleship",
+        "battleship",
+        "battleship",
+        0,
+        "carrier",
+        0,
+        0,
+        0,
+        0,
+      ],
+      [0, 0, 0, 0, 0, "carrier", 0, 0, 0, 0],
+      ["destroyer", 0, 0, 0, 0, "carrier", 0, 0, 0, 0],
+      ["destroyer", 0, 0, 0, 0, "carrier", "cruiser", 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, "cruiser", 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, "cruiser", 0, "submarine", 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, "submarine", 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, "submarine", 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    ];
+
     gameBoard = new GameBoard();
     Object.defineProperty(gameBoard, "board", {
       value: BOARD,
@@ -58,5 +59,38 @@ describe("Testing Gameboard functionality", function () {
     const ship = gameBoard.getShips()["battleship"];
     expect(ship.isSunk()).toEqual(false);
     expect(ship.getHits()).toEqual(1);
+  });
+
+  test("Gameboard report whether or not all of the ships have been sunk", function () {
+    // Sunk carrier
+    gameBoard.receiveAttack(0, 5);
+    gameBoard.receiveAttack(1, 5);
+    gameBoard.receiveAttack(2, 5);
+    gameBoard.receiveAttack(3, 5);
+    gameBoard.receiveAttack(4, 5);
+
+    // sunk battleship
+    gameBoard.receiveAttack(1, 0);
+    gameBoard.receiveAttack(1, 1);
+    gameBoard.receiveAttack(1, 2);
+    gameBoard.receiveAttack(1, 3);
+
+    // sunk cruiser
+    gameBoard.receiveAttack(4, 6);
+    gameBoard.receiveAttack(5, 6);
+    gameBoard.receiveAttack(6, 6);
+
+    // sunk submarine
+    gameBoard.receiveAttack(6, 8);
+    gameBoard.receiveAttack(7, 8);
+    gameBoard.receiveAttack(8, 8);
+
+    expect(gameBoard.isShipsSunk()).toEqual(false);
+
+    // sunk destroyer
+    gameBoard.receiveAttack(3, 0);
+    gameBoard.receiveAttack(4, 0);
+
+    expect(gameBoard.isShipsSunk()).toEqual(true);
   });
 });
